@@ -9,7 +9,7 @@
     <div class="col-md-4" *ngFor="let service of services">
         <div class="card h-100 shadow-sm border-0">
             <div class="card-body d-flex align-items-center" (click)="openServiceModal(serviceModal, service)">
-                <i class="bi bi-person-circle fs-1 me-3 text-primary"></i>
+                <i class="bi bi-gear fs-1 me-3 text-primary"></i>
                 <div>
                     <h5 class="card-title mb-1">{{ service.name }}</h5>
                     <p class="card-text text-muted mb-0">{{ service.description }}</p>
@@ -37,7 +37,7 @@
     </div>
     <div class="modal-body">
         <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-person-circle fs-2 me-3 text-primary"></i>
+            <i class="bi bi-gear fs-1 me-3 text-primary"></i>
             <div>
                 <p class="mb-1"><strong>Descripción:</strong> {{ selectedService?.description }}</p>
                 <p class="mb-1"><strong>Creado:</strong> {{ selectedService?.createDatetime | date }}</p>

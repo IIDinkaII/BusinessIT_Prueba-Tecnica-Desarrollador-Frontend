@@ -15,7 +15,7 @@ export interface Service {
     providedIn: 'root',
 })
 export class ServicesService {
-    private apiUrl = 'https://businessitprueba-dkasevh6gchwcqc5.canadacentral-01.azurewebsites.net/apiservices';
+    private apiUrl = 'https://businessitprueba-dkasevh6gchwcqc5.canadacentral-01.azurewebsites.net/api/services';
     
     constructor(private http: HttpClient) { }
 
