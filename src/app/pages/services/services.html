@@ -1,0 +1,98 @@
+<div class="container p-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Servicios</h2>
+        <button class="btn btn-primary" (click)="openCreateModal(createServiceModal)">+ Nuevo Servicio</button>
+    </div>
+    <p class="text-secondary mb-4">Aquí puedes ver todos tus servicios registrados en el sistema</p>
+
+<div class="row g-4" *ngIf="services && services.length">
+    <div class="col-md-4" *ngFor="let service of services">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body d-flex align-items-center" (click)="openServiceModal(serviceModal, service)">
+                <i class="bi bi-person-circle fs-1 me-3 text-primary"></i>
+                <div>
+                    <h5 class="card-title mb-1">{{ service.name }}</h5>
+                    <p class="card-text text-muted mb-0">{{ service.description }}</p>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-outline-primary col-md-6"
+                    (click)="openUpdateModal(updateModal, service)">Editar</button>
+                <button class="btn btn-sm btn-outline-danger col-md-6" (click)="submitDelete(service.id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="services && services.length === 0">
+    <p class="text-muted">No hay servicios registrados.</p>
+</div>
+
+<!-- SHOW ALL SERVICES -->
+
+<ng-template #serviceModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="serviceModalLabel">{{ selectedService?.name }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-person-circle fs-2 me-3 text-primary"></i>
+            <div>
+                <p class="mb-1"><strong>Descripción:</strong> {{ selectedService?.description }}</p>
+                <p class="mb-1"><strong>Creado:</strong> {{ selectedService?.createDatetime | date }}</p>
+                <p class="mb-1"><strong>Actualizado:</strong> {{ selectedService?.updateDatetime | date }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    </div>
+</ng-template>
+
+<!-- MODAL CREATE SERVICE -->
+<ng-template #createServiceModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Crear Servicio</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form #serviceForm="ngForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" id="name" name="name" class="form-control" [(ngModel)]="newService.name" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" id="description" name="description" class="form-control" [(ngModel)]="newService.description" required>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="createService(modal)">Guardar</button>
+    </div>
+</ng-template>
+
+<!-- MODAL UPDATE SERVICE -->
+<ng-template #updateModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Actualizar Servicio</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form #updateForm="ngForm" (ngSubmit)="submitUpdate(modal)">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" [(ngModel)]="selectedService!.name" name="name" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <input type="text" class="form-control" [(ngModel)]="selectedService!.description" name="description"
+                    required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
+        </form>
+    </div>
+</ng-template>
+</div>

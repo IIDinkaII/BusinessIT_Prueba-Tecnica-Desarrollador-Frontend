@@ -1,0 +1,156 @@
+body {
+    background-color: #f4f6fb;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+#wrapper {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* ======================
+   CONTENIDO CENTRAL
+====================== */
+main {
+    background: linear-gradient(180deg, #f4f6fb 0%, #ffffff 100%);
+}
+
+main .text-center {
+    background: #ffffff;
+    padding: 50px 60px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 520px;
+}
+
+main h2 {
+    color: #2c2f4a;
+}
+
+main p {
+    font-size: 1rem;
+}
+
+.sidebar {
+    width: 260px;
+    height: 100%;
+    background: #ffffff;
+    border-right: 1px solid #e6e8f0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    border-bottom: 1px solid #e6e8f0;
+}
+
+.sidebar-header i {
+    color: #6f5bd3;
+}
+
+/* ====================
+   LISTS 
+======================*/
+.card-body {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.card-body:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card i {
+    flex-shrink: 0;
+    /* el icono no se encoge */
+}
+
+/* ======================
+   MENU
+====================== */
+.menu-item {
+    margin-bottom: 8px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    background-color: #baa9ff;
+}
+
+.menu-link i {
+    color: #fff;
+    transition: transform 0.25s ease;
+}
+
+/* Hover */
+.menu-link:hover {
+    background-color: #7a5cff;
+}
+
+/* Ítem activo */
+.menu-link.active {
+    background-color: #7a5cff;
+}
+
+/* Icono efecto scale */
+.menu-link:hover i {
+    transform: scale(1.1);
+}
+
+.menu-link span {
+    font-weight: 500;
+}
+
+/* ======================
+   RESPONSIVE
+====================== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+
+    .sidebar-header h6 {
+        display: none;
+    }
+
+    .menu-link {
+        justify-content: center;
+        padding: 14px;
+    }
+
+    .menu-link span {
+        display: none;
+    }
+}
+/* ======================
+   RESPONSIVE
+====================== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+
+    .sidebar-header h6 {
+        display: none;
+    }
+
+    .menu-link {
+        justify-content: center;
+        padding: 14px;
+    }
+
+    .menu-link span {
+        display: none;
+    }
+}

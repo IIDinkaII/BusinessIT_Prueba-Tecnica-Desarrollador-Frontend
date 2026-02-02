@@ -1,0 +1,126 @@
+<div class="container p-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Clientes</h2>
+        <button class="btn btn-primary" (click)="openCreateModal(createClientModal)">+ Nuevo Cliente</button>
+    </div>
+    <p class="text-secondary mb-4">
+        Aquí puedes ver todos tus clientes registrados en el sistema
+    </p>
+
+    <div class="row g-4" *ngIf="clients && clients.length">
+        <div class="col-md-4" *ngFor="let client of clients">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex align-items-center" (click)="openClientModal(clientModal, client)">
+                    <i class="bi bi-person-circle fs-1 me-3 text-primary"></i>
+                    <div>
+                        <h5 class="card-title mb-1">{{ client.name }}</h5>
+                        <p class="card-text text-muted mb-0">{{ client.email }}</p>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-outline-primary col-md-6"
+                        (click)="openUpdateModal(updateModal, client)">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger col-md-6"
+                        (click)="submitDelete(client.id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="clients && clients.length === 0">
+        <p class="text-muted">No hay clientes registrados.</p>
+    </div>
+
+    <!-- SHOW ALL CLIENT -->
+
+    <ng-template #clientModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="clientModalLabel">{{ selectedClient?.name }}</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+    
+        <div class="modal-body">
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle fs-2 me-3 text-primary"></i>
+                <div>
+                    <p class="mb-1"><strong>Email:</strong> {{ selectedClient?.email }}</p>
+                    <p class="mb-1"><strong>Creado:</strong> {{ selectedClient?.createDatetime | date }}</p>
+                    <p class="mb-1"><strong>Actualizado:</strong> {{ selectedClient?.updateDatetime | date }}</p>
+                </div>
+            </div>
+    
+            <h6>Servicios:</h6>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    *ngFor="let service of selectedClient?.services">
+                    {{ service.name }} - {{ service.description }}
+                    <button class="btn btn-sm btn-outline-danger" (click)="removeService(service.name)">Eliminar</button>
+                </li>
+            </ul>
+    
+            <!-- FORM ADD SERVICES -->
+            <div class="d-flex gap-2">
+                <select class="form-select" [(ngModel)]="selectedServiceToAdd">
+                    <option [ngValue]="null" disabled>Selecciona un servicio</option>
+                    <option *ngFor="let service of availableServices" [ngValue]="service">
+                        {{ service.name }}
+                    </option>
+                </select>
+                <button class="btn btn-primary" (click)="addService()">Agregar</button>
+            </div>
+        </div>
+    
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+        </div>
+    </ng-template>
+
+
+    <!-- MODAL CREATE CLIENT -->
+    <ng-template #createClientModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Crear Cliente</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <form #clientForm="ngForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" id="name" name="name" class="form-control" [(ngModel)]="newClient.name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" [(ngModel)]="newClient.email"
+                        required>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="createClient(modal)">Guardar</button>
+        </div>
+    </ng-template>
+
+    <!-- MODAL UPDATE CLIENT -->
+    <ng-template #updateModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Actualizar Cliente</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <form #updateForm="ngForm" (ngSubmit)="submitUpdate(modal)">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" [(ngModel)]="selectedClientShort!.name" name="name"
+                        required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="selectedClientShort!.email" name="email"
+                        required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
+            </form>
+        </div>
+    </ng-template>
+</div>
